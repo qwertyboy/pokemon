@@ -1,6 +1,5 @@
 from moves import Moves
 import csv
-import time
 
 print('Querying API for move information...')
 moves = Moves()

@@ -39,9 +39,9 @@ class Pokemon:
             # create instance of stats
             baseStats = PokeAPI.GetBaseStats(name)
             if baseStats != -1:
-                self.baseStats = BaseStats(baseStats)
+                self.stats = BaseStats(baseStats)
             else:
-                self.baseStats = BaseStats(stats=None)
+                self.stats = BaseStats(stats=None)
 
 
 

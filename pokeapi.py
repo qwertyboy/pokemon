@@ -4,11 +4,6 @@ class PokeAPI:
     def __init__(self):
         # base api url
         self.baseUrl = 'http://pokeapi.co/api/v2/'
-        # initialize everything with blank data
-        self.pokeCount = 0
-        self.pokeList = []
-        self.speciesCount = 0
-        self.speciesList = []
 
 
     # desc: function to get a list of urls and names for each pokemon
@@ -26,8 +21,7 @@ class PokeAPI:
             # convert to json, get next url and results
             json = response.json()
             nextUrl = json['next']
-            self.pokeCount = json['count']
-            self.pokeList = json['results']
+            pokeList = json['results']
 
             # get the rest of the pages until the end
             while nextUrl != None:
@@ -37,10 +31,10 @@ class PokeAPI:
                 nextUrl = json['next']
                 results = json['results']
                 for item in results:
-                    self.pokeList.append(item)
+                    pokeList.append(item)
 
             # return the completed list
-            return self.pokeList
+            return pokeList
         except requests.exceptions.HTTPError as error:
             print('Error while getting Pokemon list: %s' % error)
             return -1
@@ -61,8 +55,7 @@ class PokeAPI:
             # convert to json, get next url and results
             json = response.json()
             nextUrl = json['next']
-            self.speciesCount = json['count']
-            self.speciesList = json['results']
+            speciesList = json['results']
 
             # get the rest of the pages until the end
             while nextUrl != None:
@@ -72,10 +65,10 @@ class PokeAPI:
                 nextUrl = json['next']
                 results = json['results']
                 for item in results:
-                    self.speciesList.append(item)
+                    speciesList.append(item)
 
             # return the completed list
-            return self.speciesList
+            return speciesList
         except requests.exceptions.HTTPError as error:
             print('Error while getting Species list: %s' % error)
             return -1
@@ -220,7 +213,7 @@ class PokeAPI:
 
     # desc: function to get a list of move entries
     # args: none
-    # retn:
+    # retn: a list of dictionaries with a url and name for each move
     def GetMoveList(self):
         startUrl = self.baseUrl + 'move/'
         moveList = []
