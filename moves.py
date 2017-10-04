@@ -7,11 +7,14 @@ PokeAPI = PokeAPI()
 # constructor args: none
 class Moves:
     def __init__(self):
+        # initialize as blank
+        self.moveList = []
+        self.moves = []
+
+    def GetAllMoves(self):
         # get the list of moves and their urls
         self.moveList = PokeAPI.GetMoveList()
-
-        # get the information about each move
-        self.moves = []
+        # get information for every move
         for move in self.moveList:
             try:
                 # get page with move data

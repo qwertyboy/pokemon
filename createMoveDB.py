@@ -1,8 +1,11 @@
 from moves import Moves
 import csv
 
-print('Querying API for move information...')
+# create instance
 moves = Moves()
+
+print('Querying API for move information...')
+moves.GetAllMoves()
 print('Finished getting move information')
 
 

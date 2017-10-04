@@ -1,5 +1,6 @@
 import requests
 
+# class containing api functions
 class PokeAPI:
     def __init__(self):
         # base api url
@@ -120,7 +121,7 @@ class PokeAPI:
                 return -1
 
 
-    # desc: function to get the level a pokemon evolves at or the trigger
+    # desc: function to get the evolution chain for a pokemon species
     # args: pokemon - the pokemon name or id to get the evolution stats for
     # retn: the chain data from the api or -1 on failure
     def GetEvoChain(self, pokemon):
@@ -229,6 +230,29 @@ class PokeAPI:
             for move in json['results']:
                 moveList.append(move)
             return moveList
+        except requests.exceptions.HTTPError as error:
+            print('Error while getting moves: %s' % error)
+            return -1
+
+
+    # desc: function to get a list of ability entries
+    # args: none
+    # retn: a list containing dictionaries with url and name for each ability
+    def GetAbilityList(self):
+        startUrl = self.baseUrl + 'ability/'
+        abilityList = []
+        try:
+            # get initial response to get number of moves
+            response = requests.get(startUrl)
+            urlLimit = response.json()['count']
+            # get full results page and json-ify it
+            limitUrl = startUrl + '?limit=' + str(urlLimit)
+            response = requests.get(limitUrl)
+            json = response.json()
+            # store results into list
+            for ability in json['results']:
+                abilityList.append(ability)
+            return abilityList
         except requests.exceptions.HTTPError as error:
             print('Error while getting moves: %s' % error)
             return -1

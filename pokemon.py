@@ -7,9 +7,9 @@ PokeAPI = PokeAPI()
 class Pokemon:
     def __init__(self, name=None):
         if name is None:
-            self.name = ''
-            self.number = 0
-            self.type = []
+            self.name = None
+            self.number = None
+            self.type = None
             self.evolution = Evolution(chain=None)
             self.stats = BaseStats(stats=None)
         else:
@@ -20,14 +20,14 @@ class Pokemon:
             if pokeNum != -1:
                 self.number = pokeNum
             else:
-                self.number = 0
+                self.number = None
 
             pokeType = PokeAPI.GetPokeType(name)
             # get pokemon type(s)
             if pokeType != -1:
                 self.type = pokeType
             else:
-                self.type = []
+                self.type = None
 
             # create a instance of the evolution
             evoChain = PokeAPI.GetEvoChain(name)
@@ -50,8 +50,8 @@ class Pokemon:
 class Evolution:
     def __init__(self, chain=None):
         if chain is None:
-            self.baseSpecies = {}
-            self.evolutions = {}
+            self.baseSpecies = None
+            self.evolutions = None
         else:
             self.baseSpecies = chain['species']['name']
 
@@ -89,7 +89,7 @@ class Evolution:
 
 
 # desc: class for holding evolution details
-# constructor args: details - a list containing the details for this evolution
+# constructor args: details - a dictionary containing the details for this evolution
 class EvoDetails:
     def __init__(self, details):
         self.minLevel = details['min_level']
@@ -118,12 +118,12 @@ class EvoDetails:
 class BaseStats:
     def __init__(self, stats=None):
         if stats is None:
-            self.hp = 0
-            self.attack = 0
-            self.defense = 0
-            self.spAtk = 0
-            self.spDef = 0
-            self.speed = 0
+            self.hp = None
+            self.attack = None
+            self.defense = None
+            self.spAtk = None
+            self.spDef = None
+            self.speed = None
         else:
             self.hp = stats['hp']
             self.attack = stats['attack']
